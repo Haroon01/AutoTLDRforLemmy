@@ -3,21 +3,23 @@ import Smmry from './Smmry';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
+const { INSTANCE, USER, PASSWORD, API } = process.env as Record<string, string>;
 
-const smmry  = new Smmry();
 
-function comment(char_count: string, content: string, content_reduced: string){
+const smmry  = new Smmry(API);
+
+function commentTemplate(char_count: string, content: string, content_reduced: string){
   return `Content Reduced By ${content_reduced}\n\n>${content}\n\nCharacter Count: ${char_count}\n\n(This is an automated comment.)`
 }
 
 const bot = new LemmyBot({
   // Pass configuration options here
   credentials:{
-    username: process.env.USERNAME || "",
-    password: process.env.PASSWORD || "",
+    username: USER,
+    password: PASSWORD,
   },
 
-  instance: process.env.INSTANCE || "",
+  instance: INSTANCE,
 
   connection: {
     secondsBetweenPolls: 30,
@@ -38,7 +40,7 @@ const bot = new LemmyBot({
       createComment({
         post_id: post.id,
         
-        content: comment(chars, content, reduced)
+        content: commentTemplate(chars, content, reduced)
       })
       
     }
