@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@types/dotenv": "^8.2.0",
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "lemmy-bot": "^0.4.2",
+    "ts-node": "^10.9.1"
+  }
+}
