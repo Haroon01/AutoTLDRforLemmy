@@ -25,11 +25,12 @@ const bot = new LemmyBot({
     secondsBetweenPolls: 30,
   },
   federation: 'local',
+  dbFile: "data.sqlite3",
   handlers: {
 
     async mention ({
       mentionView: { post },
-      botActions: { createComment }
+      botActions: { createComment },
     }){
       const postUrl: string = post?.url || "";
       const res = await smmry.execute(postUrl);
@@ -39,7 +40,6 @@ const bot = new LemmyBot({
       const reduced = data.sm_api_content_reduced;
       createComment({
         post_id: post.id,
-        
         content: commentTemplate(chars, content, reduced)
       })
       
